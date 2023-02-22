@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CRUD</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+        <link rel="stylesheet" href="style.css">
+        <script src="main.js" defer></script>
+</head>
+
+<body>
+ 
+<div class="col-12 m-0 p-0 text-center mt-3 mb-3">
+    <h1>Product Management System</h1>
+</div>    
+
+
+<button type="button" class="btn btn-primary btn-lg add-new-product-btn m-5" data-bs-toggle="modal" data-bs-target="#add-new-product-modal">Add New Product</button>
+<div class="modal fade" id="add-new-product-modal" tabindex="-1" aria-labelledby="add-new-product-modal-label" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title popup-text fs-5" id="add-new-product-modal-label" onclick="readformData()">Add New Product</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"  aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="add-new-product-form">
+
+
+                  
+                    <div class="row">
+                        <div class="form-group col-12 mb-5">
+                            <label class="popup-text" for="name">Product Name</label>
+                            <input type="text" class="form-control" id="productName">
+            
+                        </div>
+                        <div class="form-group col-12 mb-5">
+                            <label class="popup-text" for="name">Price</label>
+                            <input type="number" class="form-control" id="ProductPrice">
+            
+                        </div>
+                        <div class="form-group col-12 mb-5">
+                            <label class="popup-text" for="name">Image Picture</label>
+                            <input type="file" class="form-control" id="Image">
+            
+                        </div>
+                        <div class="form-group col-12 mb-5">
+                            <label class="popup-text" for="name">Description</label>
+                            <input type="text" class="form-control" id="description">
+            
+                        </div>
+                     
+                </form>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" >Close</button>
+                    <button type="button" class="btn btn-primary" >Add Product</button>
+                </div>
+            </div>
+          
+        </div>
+    </div>
+</div>
+ </div>
+
+
+ <div class="col-11 m-0 p-0  m-5">
+    <h3>Sort Products By </h3><br>
+    <div class="btn-group me-2" id="sort-btn-group" role="group" aria-label="Basic radio toggle button group">
+        <input type="radio" class="btn-check" name="sort-btn" id="product-id-sort-btn" value="ProductId" autocomplete="off" checked>
+        <label class="btn btn-outline-primary" for="product-id-sort-btn">Product Id</label>
+      
+        <input type="radio" class="btn-check" name="sort-btn" id="product-name-sort-btn" value="ProductName" autocomplete="off">
+        <label class="btn btn-outline-primary" for="product-name-sort-btn">Product Name</label>
+      
+        <input type="radio" class="btn-check" name="sort-btn" id="product-price-sort-btn" value="Price" autocomplete="off">
+        <label class="btn btn-outline-primary" for="product-price-sort-btn">Product Price (Low to High)</label>
+
+        <input type="radio" class="btn-check" name="sort-btn" id="product-price-htl-sort-btn" value="Price-htl" autocomplete="off">
+        <label class="btn btn-outline-primary" for="product-price-htl-sort-btn">Product Price (High to Low)</label>
+    </div>
+
+ </div>
+ <div class="col-11 m-0 p-0  m-5">
+    <h3>Filter Products By</h3><br>
+    <input type="text" class="form-control" id="filter" placeholder="Filter product">
+
+ </div>
+
+
+ <hr class="text-white">
+
+
+ <div class="container">
+   <h1 class="text-center">Products Available</h1>
+   <div class="container-fluid d-flex flex-md-row flex-column" >
+    <div class="card m-2" style="width: 18rem;">
+        <img class="card-img-top" src="./item1.avif" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title Card-text">Product Name</h5>
+          <p class="card-text Card-text">Product Description </p>
+          <p class="card-text Card-text">Product Price </p>
+          <button class="btn-success btn ">Delete</button>
+          <button class="btn-danger btn">Update</button>
+        </div>
+      </div>
+    <div class="card m-2" style="width: 18rem;">
+        <img class="card-img-top" src="./item1.avif" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title Card-text">Product Name</h5>
+          <p class="card-text Card-text">Product Description </p>
+          <p class="card-text Card-text">Product Price </p>
+          <button class="btn-success btn ">Delete</button>
+          <button class="btn-danger btn">Update</button>
+        </div>
+      </div>
+    <div class="card m-2" style="width: 18rem;">
+        <img class="card-img-top" src="./item1.avif" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title Card-text">Product Name</h5>
+          <p class="card-text Card-text">Product Description </p>
+          <p class="card-text Card-text">Product Price </p>
+          <button class="btn-success btn ">Delete</button>
+          <button class="btn-danger btn">Update</button>
+        </div>
+      </div>
+    <div class="card m-2" style="width: 18rem;">
+        <img class="card-img-top" src="./item1.avif" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title Card-text">Product Name</h5>
+          <p class="card-text Card-text">Product Description </p>
+          <p class="card-text Card-text">Product Price </p>
+          <button class="btn-success btn ">Delete</button>
+          <button class="btn-danger btn">Update</button>
+        </div>
+      </div>
+    <div class="card m-2" style="width: 18rem;">
+        <img class="card-img-top" src="./item1.avif" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title Card-text">Product Name</h5>
+          <p class="card-text Card-text">Product Description </p>
+          <p class="card-text Card-text">Product Price </p>
+          <button class="btn-success btn ">Delete</button>
+          <button class="btn-danger btn">Update</button>
+        </div>
+      </div>
+   </div>
+      
+</div>
+      
+
+
+ 
+ 
+   
+     
+  
+ <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
