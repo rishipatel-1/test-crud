@@ -29,8 +29,9 @@ function displayData(){
     let obj = JSON.parse(localStorage.getItem("data"));
     let data = '';
     obj.forEach(product =>{
-        data += ` <div class="card m-2" style="width: 18rem;">
-        <img class="card-img-top" style="width:10rem; height:10rem; margin:auto;" src="${product.Image}" alt="Card image cap">
+        data += ` <div class="card m-2 col-lg-3 col-md-6 col-sm-12 ">
+      
+        <img class="card-img-top mt-3"" src="${product.Image}" alt="Card image cap">
         <div class="card-body">
           <h5 class="card-title Card-text">${product.ProductName}</h5>
           <p class="card-text Card-text">${product.ProductPrice}</p>
@@ -39,6 +40,16 @@ function displayData(){
           <button class="btn-danger btn">Update</button>
         </div>
       </div>`
+      
     })
     document.getElementById('products-row').innerHTML = data;
 }
+
+ 
+
+
+// deleteProduct(productId){
+//     this.products = this.products.filter((product) => product.ProductId !== productId);
+//     localStorage.setItem('products',JSON.stringify(this.products));
+//     this.fetchProducts();
+// }

@@ -16,6 +16,7 @@
  
 <div class="col-12 m-0 p-0 text-center mt-3 mb-3">
     <h1>Product Management System</h1>
+    <hr>
 </div>    
 
 
@@ -67,9 +68,10 @@
  </div>
 
 
- <div class="col-11 m-0 p-0  m-5">
+ <div class="col-12 m-0 p-5">
     <h3>Sort Products By </h3><br>
     <div class="btn-group me-2" id="sort-btn-group" role="group" aria-label="Basic radio toggle button group">
+      <div class="col-12">
         <input type="radio" class="btn-check" name="sort-btn" id="product-id-sort-btn" value="ProductId" autocomplete="off" checked>
         <label class="btn btn-outline-primary" for="product-id-sort-btn">Product Id</label>
       
@@ -81,12 +83,13 @@
 
         <input type="radio" class="btn-check" name="sort-btn" id="product-price-htl-sort-btn" value="Price-htl" autocomplete="off">
         <label class="btn btn-outline-primary" for="product-price-htl-sort-btn">Product Price (High to Low)</label>
+      </div>
     </div>
 
  </div>
- <div class="col-11 m-0 p-0  m-5">
+ <div class="col-12 m-0 p-0 p-5">
     <h3>Filter Products By</h3><br>
-    <input type="text" class="form-control" id="filter" placeholder="Filter product">
+    <input type="text" class="form-control" style="width: 80%;" id="filter" placeholder="Filter product">
 
  </div>
 
@@ -94,9 +97,9 @@
  <hr class="text-white">
 
 
- <div class="container">
-   <h1 class="text-center">Products Available</h1>
-   <div class="container-fluid" id="products-row">
+ <div class="container-fluid">
+   <h1 class="text-center mb-5">Products Available</h1>
+   <div class="row d-flex justify-content-center" id="products-row">
    
    </div>
       

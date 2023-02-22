@@ -10,4 +10,9 @@ body{
 }
 .Card-text{
     color:rgb(88, 88, 88);
+    background-color: rgb(243, 243, 243);
+}
+.InputFliter{
+    width: 80%;
+    border-radius: 5px;
 }
