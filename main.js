@@ -15,6 +15,7 @@ const convertBase64 = (file) => {
 async function readformData(){
     let array = JSON.parse(localStorage.getItem("data")) ?? [];
     formData = {};
+    formData['product_id'] = Math.floor(Math.random() * 1000)
     formData['ProductName'] = document.getElementById('productName').value
     formData['ProductPrice'] = document.getElementById('productPrice').value
     formData['Image'] = await convertBase64(document.getElementById('Image').files[0]);
@@ -28,7 +29,7 @@ window.onload = displayData();
 function displayData(){
     let obj = JSON.parse(localStorage.getItem("data"));
     let data = '';
-    obj.forEach(product =>{
+    obj.forEach((product) =>{
         data += ` <div class="card m-2 col-lg-3 col-md-6 col-sm-12 ">
       
         <img class="card-img-top mt-3"" src="${product.Image}" alt="Card image cap">
@@ -36,8 +37,8 @@ function displayData(){
           <h5 class="card-title Card-text">${product.ProductName}</h5>
           <p class="card-text Card-text">${product.ProductPrice}</p>
           <p class="card-text Card-text">${product.description}</p>
-          <button class="btn-success btn ">Delete</button>
-          <button class="btn-danger btn">Update</button>
+          <button class="btn-success btn " onclick="deleteProduct(${product.product_id})">Delete</button>
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#update-product-modal" onclick="updateProduct(${product.product_id})">update </button>
         </div>
       </div>`
       
@@ -46,10 +47,53 @@ function displayData(){
 }
 
  
+function deleteProduct(indx){
+    console.log("Pos: ",indx)
+    let array = JSON.parse(localStorage.getItem("data")) ?? [];
+    array = array.filter((ele)=>indx!==ele.product_id )
+   // array.pop
+    console.log(array)
+    localStorage.setItem("data", JSON.stringify(array));
+    displayData();
+}
 
+function    updateProduct(pid){
+    console.log("update",document.getElementById("update-productName"));
+    let array = JSON.parse(localStorage.getItem("data")) ?? [];
+    const elem = array.filter((ele)=>pid===ele.product_id );
+    console.log(elem);
+    (document.getElementById("update-productName")).value=elem[0].ProductName;
+    (document.getElementById("update-productPrice")).value=elem[0].ProductPrice;
+    (document.getElementById('update-description')).value=elem[0].description;
+   // (document.getElementById('update-Image')).value=elem[0].Image;
+    console.log(elem[0].product_id);
+    (document.getElementById('hiddentproductid')).value=elem[0].product_id;
+ //   $("#add-new-product-modal").modal("show")
+}
+function updateData(){
+    const id =(document.getElementById('hiddentproductid')).value
+    console.log(id);
+    let array = JSON.parse(localStorage.getItem("data")) ?? [];
+    //const elem = array.filter((ele)=>pid===ele.product_id );
+    array = array.map((ele)=>{
+        formData={}
+        if(ele.product_id===parseInt(id)){
+            console.log("found the product");
+             ele.productName=(document.getElementById('update-productName')).value
+             ele.ProductPrice=(document.getElementById('update-productPrice')).value
+             ele.description = (document.getElementById('update-description')).value
 
-// deleteProduct(productId){
-//     this.products = this.products.filter((product) => product.ProductId !== productId);
-//     localStorage.setItem('products',JSON.stringify(this.products));
-//     this.fetchProducts();
-// }
+        }
+        
+        return ele;
+
+    })
+    console.log("product:",array);
+    formData['product_id'] = Math.floor(Math.random() * 1000)
+    // formData['ProductName'] = document.getElementById('productName').value
+    // formData['ProductPrice'] = document.getElementById('productPrice').value
+    // formData['description'] = document.getElementById('description').value
+    localStorage.setItem("data", JSON.stringify(array));
+    displayData();
+
+}

@@ -67,6 +67,52 @@
 </div>
  </div>
 
+<div class="modal fade" id="update-product-modal" tabindex="-1" aria-labelledby="update-product-modal-label" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title popup-text fs-5" id="add-new-product-modal-label" onclick="readformData()">Add New Product</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"  aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="add-new-product-form">
+
+
+                  <input type="text" id="hiddentproductid" hidden />
+                    <div class="row">
+                        <div class="form-group col-12 mb-5">
+                            <label class="popup-text" for="name">Product Name</label>
+                            <input type="text" class="form-control" id="update-productName">
+            
+                        </div>
+                        <div class="form-group col-12 mb-5">
+                            <label class="popup-text" for="name">Price</label>
+                            <input type="number" class="form-control" id="update-productPrice">
+            
+                        </div>
+                        <div class="form-group col-12 mb-5">
+                            <label class="popup-text" for="name">Image Picture</label>
+                            <input type="file" class="form-control" id="update-Image">
+            
+                        </div>
+                        <div class="form-group col-12 mb-5">
+                            <label class="popup-text" for="name">Description</label>
+                            <input type="text" class="form-control" id="update-description">
+            
+                        </div>
+                     
+                </form>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" >Close</button>
+                    <button type="button" class="btn btn-primary"  onclick="updateData()">update Product</button>
+                </div>
+            </div>
+          
+        </div>
+    </div>
+</div>
+ </div>
+
 
  <div class="col-12 m-0 p-5">
     <h3>Sort Products By </h3><br>
