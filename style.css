@@ -2,7 +2,11 @@
     color: white;
 }
 body{
-    background-color: rgb(61, 61, 61);
+    background-image: url('./images.jpeg');
+    background-repeat: no-repeat;
+    background-size:cover;
+    width: 100%;
+    height: auto;
 }
 .popup-text{
     color:black;
@@ -13,6 +17,8 @@ body{
     background-color: rgb(243, 243, 243);
 }
 .InputFliter{
-    width: 80%;
+    width: 50%;
     border-radius: 5px;
 }
+
+

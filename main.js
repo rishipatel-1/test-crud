@@ -27,23 +27,23 @@ async function readformData(){
 }
 window.onload = displayData();
 function displayData(){
-    let obj = JSON.parse(localStorage.getItem("data"));
+    let obj = JSON.parse(localStorage.getItem("data")) ?? [];
     let data = '';
-    let filterData = '';
+    let filterData = '<option class="text-dark" value="all">ALL</option>';
     obj.forEach((product) =>{
         data += ` <div class="card m-2 col-lg-3 col-md-6 col-sm-12 ">
       
-        <img class="card-img-top mt-3"" src="${product.Image}" alt="Card image cap">
+        <img class="card-img-top mt-3"" src="${product.Image}" alt="Card image cap"">
         <div class="card-body">
           <h5 class="card-title Card-text">${product.ProductName}</h5>
           <p class="card-text Card-text">${product.ProductPrice}</p>
           <p class="card-text Card-text">${product.description}</p>
-          <button class="btn-success btn " onclick="deleteProduct(${product.product_id})">Delete</button>
-          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#update-product-modal" onclick="updateProduct(${product.product_id})">update </button>
+          <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#update-product-modal" onclick="updateProduct(${product.product_id})">update </button>
+          <button class="btn-danger btn " onclick="deleteProduct(${product.product_id})">Delete</button>
         </div>
       </div>`
 
-        filterData += `<option value="${product.product_id}">${product.product_id}</option>`
+        filterData += `<option class="text-dark" value="${product.product_id}">${product.product_id}(${product.ProductName})</option>`
       
     })
     document.getElementById('filter-select-input').innerHTML = filterData;
@@ -54,19 +54,18 @@ function displayData1(products){
     let data = '';
     // let filterData = '';
     obj.forEach((product) =>{
-        data += ` <div class="card m-2 col-lg-3 col-md-6 col-sm-12 ">
-      
+        data += ` <div class="card m-2 col-lg-3 col-md-6 col-sm-12">
         <img class="card-img-top mt-3"" src="${product.Image}" alt="Card image cap">
         <div class="card-body">
           <h5 class="card-title Card-text">${product.ProductName}</h5>
           <p class="card-text Card-text">${product.ProductPrice}</p>
           <p class="card-text Card-text">${product.description}</p>
-          <button class="btn-success btn " onclick="deleteProduct(${product.product_id})">Delete</button>
-          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#update-product-modal" onclick="updateProduct(${product.product_id})">update </button>
+          <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#update-product-modal" onclick="updateProduct(${product.product_id})">update </button>
+          <button class="btn-danger btn " onclick="deleteProduct(${product.product_id})">Delete</button>
         </div>
       </div>`
 
-        // filterData += `<option value="${product.product_id}">${product.product_id}</option>`
+     
       
     })
     // document.getElementById('filter-select-input').innerHTML = filterData;
@@ -92,6 +91,7 @@ function    updateProduct(pid){
     (document.getElementById("update-productName")).value=elem[0].ProductName;
     (document.getElementById("update-productPrice")).value=elem[0].ProductPrice;
     (document.getElementById('update-description')).value=elem[0].description;
+    
 
 
 
@@ -101,23 +101,24 @@ function    updateProduct(pid){
     (document.getElementById('hiddentproductid')).value=elem[0].product_id;
 
 }
-function updateData(){
+ async function updateData(){
     const id =(document.getElementById('hiddentproductid')).value
     console.log(id);
-
-
-
-
+    let imagess = null;
+    if(document.getElementById('update-Image').files[0]){
+        imagess= await convertBase64(document.getElementById('update-Image').files[0]);
+    }
     let array = JSON.parse(localStorage.getItem("data")) ?? [];
     array = array.map((ele)=>{
         formData={}
         if(ele.product_id===parseInt(id)){
             console.log("found the product");
-             ele.productName=(document.getElementById('update-productName')).value
+            if(imagess!==null){
+                ele.Image = imagess;
+            }
+             ele.ProductName=(document.getElementById('update-productName')).value
              ele.ProductPrice=(document.getElementById('update-productPrice')).value
              ele.description = (document.getElementById('update-description')).value
-            //  ele.Image = (document.getElementById('Update-Image')).value
-
         }
         
         return ele;
@@ -133,13 +134,28 @@ function updateData(){
 function filterProducts(filterValue){
     let filteredProducts;
     products = JSON.parse(localStorage.getItem("data")) ?? [];
-    if(filterValue == ''){
+    if(filterValue == '' || filterValue == 'all'){
         filteredProducts = products;
     }else{
         filteredProducts = products.filter((product) => product.product_id == filterValue);
     }
     console.log(filteredProducts)
     displayData1(filteredProducts);
+}
+function searchProducts(){
+    const search_val = document.querySelector('#serachProductText').value;
+    console.log(search_val);
+    let sortedItem=[];
+    let products = JSON.parse(localStorage.getItem("data")) ?? [];
+    let regex = new RegExp(search_val, "i")
+    for (let element of products) {
+        const item = element;
+        if (regex.test(item.ProductName) ) {
+            sortedItem.push(element);
+        }
+    }
+    console.log(sortedItem);
+    displayData1(sortedItem);
 }
 
 
@@ -162,4 +178,49 @@ listitem.forEach((item)=>{
         item.style.display = "none";
     }
 })
+}
+
+
+
+
+
+
+function sortProducts(sortValue){
+    
+    let filteredProducts=JSON.parse(localStorage.getItem("data")) ?? [];;
+    console.log('if',filteredProducts);
+// console.log(sortValue);
+
+    if(sortValue==='ProductName'){
+        console.log('PorudctName sort');
+        filteredProducts=filteredProducts.sort((a,b)=>a.ProductName.localeCompare(b.ProductName))
+    }
+    else if(sortValue==='ProductId'){
+        console.log('ProductId');
+        filteredProducts=filteredProducts.sort((a,b)=>a.product_id-b.product_id)
+
+    }
+    else if(sortValue==='hl'){
+        filteredProducts=filteredProducts.sort((a,b)=>b.ProductPrice-a.ProductPrice)
+    }
+    else{
+        filteredProducts=filteredProducts.sort((a,b)=>a.ProductPrice-b.ProductPrice)
+
+    }
+
+    // if(sortValue === 'ProductName'){
+    //     filteredProducts = filteredProducts.sort((a,b) => a.ProductName.localeCompare(b.ProductName));
+    // }
+    // else if(sortValue === 'ProductPrice'){
+    //     filteredProducts = filteredProducts.sort((a,b) => b.ProductPrice - a.ProductPrice);
+    // }
+    // else{
+    //     filteredProducts = filteredProducts.sort((a,b) => a.ProductId - b.ProductId);
+    // }
+
+    console.log('Filtered Product: ',filteredProducts)
+    // //this.displayProducts(filteredProducts);
+    localStorage.setItem("data", JSON.stringify(filteredProducts));
+
+    displayData();
 }
